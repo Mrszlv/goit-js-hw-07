@@ -17,11 +17,15 @@ function handleClick() {
         createBoxes(amount);
         input.value = '';
       }
+      else {
+        alert("Please enter a number between 1 and 100!")
+      }
 }
     
-    function createBoxes(amount) {
-      const fragment = document.createDocumentFragment();
-      
+function createBoxes(amount) {
+  destroyBoxes();
+      const block = document.createDocumentFragment();
+
       let size = 30;
 
       for (let i = 0; i < amount; i += 1) {
@@ -29,14 +33,17 @@ function handleClick() {
         divBox.style.width = `${size}px`;
         divBox.style.height = `${size}px`;
         divBox.style.backgroundColor = getRandomHexColor();
-        fragment.appendChild(divBox);
+        block.appendChild(divBox);
         size += 10;
+        
       }
-      boxesContainer.appendChild(fragment);
+  boxesContainer.appendChild(block);
     }
 
     destroyBtn.addEventListener('click', destroyBoxes);
 
     function destroyBoxes() {
-      boxesContainer.innerHTML = '';
+      while (boxesContainer.firstChild) {
+        boxesContainer.removeChild(boxesContainer.firstChild);
+    }
     }
